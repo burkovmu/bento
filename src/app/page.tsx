@@ -103,7 +103,7 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-screen bg-[#FDF8F7] overflow-hidden">
+      <section className="relative min-h-screen bg-[#FDF8F7] overflow-hidden pt-32 lg:pt-0">
         {/* Декоративный фон */}
         <div className="absolute inset-0 bg-gradient-to-b from-background to-cream/5" />
         <div className="absolute inset-0">
