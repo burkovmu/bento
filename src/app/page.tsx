@@ -89,11 +89,14 @@ export default function Home() {
   const router = useRouter()
   const { isFavorite, addToFavorites, removeFromFavorites } = useFavorites()
 
-  const handleFavoriteClick = (id: string) => {
+  const handleFavoriteClick = (id: number) => {
+    const cake = cakes.find(cake => cake.id === id)
+    if (!cake) return
+
     if (isFavorite(id)) {
       removeFromFavorites(id)
     } else {
-      addToFavorites(id)
+      addToFavorites(cake)
     }
   }
 
