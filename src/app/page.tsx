@@ -10,33 +10,26 @@ import { useFavorites } from '@/context/FavoritesContext'
 
 const cakes = [
   {
-    id: '1',
-    title: 'Нежная ваниль',
-    description: 'Воздушный ванильный бисквит с кремом из маскарпоне и свежими ягодами',
+    id: 1,
+    title: 'Шоколадный бенто',
+    description: 'Нежный шоколадный бисквит с кремом из темного шоколада',
     price: 2500,
-    image: '/images/placeholder.svg'
+    image: '/cakes/chocolate-bento.jpg'
   },
   {
-    id: '2',
-    title: 'Клубничный рай',
-    description: 'Бисквит с клубничным муссом и кусочками свежей клубники',
-    price: 2800,
-    image: '/images/placeholder.svg'
+    id: 2,
+    title: 'Клубничный бенто',
+    description: 'Воздушный ванильный бисквит со свежей клубникой',
+    price: 2700,
+    image: '/cakes/strawberry-bento.jpg'
   },
   {
-    id: '3',
-    title: 'Шоколадный бархат',
-    description: 'Шоколадный бисквит с ганашем и карамельной прослойкой',
-    price: 3200,
-    image: '/images/placeholder.svg'
-  },
-  {
-    id: '4',
-    title: 'Лавандовый сон',
-    description: 'Лавандовый бисквит с черничным кремом и съедобными цветами',
+    id: 3,
+    title: 'Матча бенто',
+    description: 'Бисквит с зеленым чаем матча и белым шоколадом',
     price: 2900,
-    image: '/images/placeholder.svg'
-  },
+    image: '/cakes/matcha-bento.jpg'
+  }
 ]
 
 const ZigzagPattern = () => (
@@ -301,128 +294,115 @@ export default function Home() {
       </section>
 
       {/* Наши особенные торты */}
-      <section className="relative py-32">
-        <ParallaxBackground>
-          <div className="absolute inset-0 bg-gradient-to-b from-background via-cream/5 to-background">
-            <ZigzagPattern />
-          </div>
-        </ParallaxBackground>
-        
+      <section className="relative py-32 overflow-hidden">
+        {/* Декоративный фон */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-0 w-full h-full bg-[url('/patterns/grid.svg')] opacity-[0.02]" />
+          <div className="absolute top-20 left-10 w-96 h-96 bg-primary/5 rounded-full blur-[100px]" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-peach/10 rounded-full blur-[100px]" />
+        </div>
+
         <div className="container mx-auto px-4 relative">
+          {/* Заголовок секции */}
           <motion.div
+            className="max-w-3xl mx-auto text-center mb-20"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center max-w-3xl mx-auto mb-16"
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="inline-block mb-6"
+              className="inline-block"
             >
-              <div className="bg-primary/10 text-primary px-6 py-2 rounded-full text-sm font-medium">
-                Популярные торты
+              <div className="bg-primary/10 text-primary px-6 py-2 rounded-full text-sm font-medium mb-6">
+                Выбор покупателей
               </div>
             </motion.div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+            
+            <h2 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
               Наши особенные торты
             </h2>
-            <p className="text-gray-600 text-lg">
-              Каждый торт - это уникальное произведение кондитерского искусства,
-              созданное с любовью и вниманием к деталям
+            <p className="text-gray-600 text-lg md:text-xl max-w-2xl mx-auto">
+              Каждый торт — это произведение искусства, созданное с любовью 
+              и вниманием к каждой детали
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Карточки тортов */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16 mb-20 max-w-7xl mx-auto">
             {cakes.map((cake, index) => (
               <motion.div
                 key={cake.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.2 }}
-                className="group"
+                transition={{ 
+                  duration: 0.7,
+                  delay: index * 0.2,
+                  ease: [0.21, 0.47, 0.32, 0.98]
+                }}
+                className="flex justify-center"
               >
-                <div className="bg-white rounded-3xl shadow-soft overflow-hidden transition-all duration-500 hover:shadow-hover">
-                  <div className="relative h-72 overflow-hidden">
-                    <Image
-                      src={cake.image}
-                      alt={cake.title}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    
-                    {/* Цена и кнопка */}
-                    <div className="absolute inset-x-0 bottom-0 p-6 flex flex-col items-center transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                      <span className="text-2xl font-bold text-white mb-4">
-                        {cake.price} ₽
-                      </span>
-                      <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="bg-white text-gray-800 px-8 py-3 rounded-full font-medium shadow-lg hover:bg-primary hover:text-white transition-colors duration-300"
-                      >
-                        Заказать
-                      </motion.button>
-                    </div>
-
-                    {/* Иконка избранного */}
-                    <motion.button
-                      whileHover={{ scale: 1.2 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={() => handleFavoriteClick(cake.id)}
-                      className="absolute top-4 right-4 p-3 bg-white/90 backdrop-blur-sm rounded-full shadow-md hover:bg-primary hover:text-white transition-colors duration-300"
-                    >
-                      <Heart 
-                        className={`w-5 h-5 ${isFavorite(cake.id) ? 'fill-primary text-primary' : ''}`} 
-                      />
-                    </motion.button>
-                  </div>
-
-                  <div className="p-6">
-                    <h3 className="font-bold text-xl mb-2 text-gray-800 group-hover:text-primary transition-colors duration-300">
-                      {cake.title}
-                    </h3>
-                    <p className="text-gray-600 line-clamp-2 mb-4 leading-relaxed">
-                      {cake.description}
-                    </p>
-                    <div className="flex items-center gap-2">
-                      <div className="flex">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                        ))}
-                      </div>
-                      <span className="text-sm text-gray-500">(24 отзыва)</span>
-                    </div>
-                  </div>
-                </div>
+                <CakeCard {...cake} />
               </motion.div>
             ))}
           </div>
 
+          {/* Кнопка "Смотреть все торты" */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mt-16"
+            className="text-center"
           >
-            <motion.a
-              href="/catalog"
-              whileHover={{ scale: 1.05, y: -5 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center px-10 py-4 bg-primary text-white rounded-full font-medium shadow-lg hover:shadow-xl hover:shadow-primary/20 transition-all duration-300"
+            <motion.div
+              className="inline-block"
+              whileHover={{ y: -5, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <span className="mr-2">Смотреть все торты</span>
-              <motion.div
-                animate={{ x: [0, 5, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
+              <a
+                href="/catalog"
+                className="group inline-flex items-center gap-3 px-12 py-5 bg-white text-gray-800 rounded-2xl font-medium shadow-soft hover:shadow-hover transition-all duration-300"
               >
-                <ChevronDown className="w-5 h-5 rotate-[-90deg]" />
-              </motion.div>
-            </motion.a>
+                <span className="text-lg">Смотреть все торты</span>
+                <motion.div
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                  className="p-2 rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300"
+                >
+                  <ChevronDown className="w-5 h-5 rotate-[-90deg]" />
+                </motion.div>
+              </a>
+            </motion.div>
           </motion.div>
+
+          {/* Декоративные элементы */}
+          <motion.div
+            className="absolute -left-4 top-1/3 w-24 h-24 rounded-full bg-primary/10"
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.3, 0.5, 0.3],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+          <motion.div
+            className="absolute -right-4 bottom-1/3 w-32 h-32 rounded-full bg-peach/20"
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [0.2, 0.4, 0.2],
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
         </div>
       </section>
     </main>
