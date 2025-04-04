@@ -4,16 +4,11 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { Heart, ShoppingBag } from 'lucide-react'
 import { useFavorites } from '@/context/FavoritesContext'
+import { Product } from '@/data/products'
 
-interface CakeCardProps {
-  id: number
-  title: string
-  description: string
-  price: number
-  image: string
-}
+type CakeCardProps = Product
 
-export function CakeCard({ id, title, description, price, image }: CakeCardProps) {
+export function CakeCard({ id, name, description, price, image }: CakeCardProps) {
   const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites()
   const isProductFavorite = isFavorite(id)
 
@@ -21,7 +16,7 @@ export function CakeCard({ id, title, description, price, image }: CakeCardProps
     if (isProductFavorite) {
       removeFromFavorites(id)
     } else {
-      addToFavorites(id)
+      addToFavorites({ id, name, description, price, image } as Product)
     }
   }
 
@@ -35,7 +30,7 @@ export function CakeCard({ id, title, description, price, image }: CakeCardProps
       <div className="relative aspect-square overflow-hidden">
         <Image
           src={image}
-          alt={title}
+          alt={name}
           fill
           className="object-cover transition-transform duration-300 group-hover:scale-110"
         />
@@ -60,7 +55,7 @@ export function CakeCard({ id, title, description, price, image }: CakeCardProps
       </div>
 
       <div className="p-4">
-        <h3 className="mb-1 text-lg font-bold text-gray-800">{title}</h3>
+        <h3 className="mb-1 text-lg font-bold text-gray-800">{name}</h3>
         <p className="mb-3 text-sm text-gray-600 line-clamp-2">{description}</p>
         <p className="text-lg font-bold text-primary">{price} ₽</p>
       </div>

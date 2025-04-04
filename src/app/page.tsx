@@ -11,26 +11,29 @@ import { useFavorites } from '@/context/FavoritesContext'
 const cakes = [
   {
     id: 1,
-    title: 'Шоколадный бенто',
+    name: 'Шоколадный бенто',
+    category: 'Торты',
     description: 'Нежный шоколадный бисквит с кремом из темного шоколада',
     price: 2500,
     image: '/cakes/chocolate-bento.jpg'
   },
   {
     id: 2,
-    title: 'Клубничный бенто',
+    name: 'Клубничный бенто',
+    category: 'Торты',
     description: 'Воздушный ванильный бисквит со свежей клубникой',
     price: 2700,
     image: '/cakes/strawberry-bento.jpg'
   },
   {
     id: 3,
-    title: 'Матча бенто',
+    name: 'Матча бенто',
+    category: 'Торты',
     description: 'Бисквит с зеленым чаем матча и белым шоколадом',
     price: 2900,
     image: '/cakes/matcha-bento.jpg'
   }
-]
+] as const;
 
 const ZigzagPattern = () => (
   <svg className="absolute inset-0 w-full h-full opacity-[0.02]" width="100%" height="100%">
